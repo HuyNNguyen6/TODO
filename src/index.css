@@ -1,0 +1,193 @@
+:root {
+    --text-default-color: black;
+    --text-white: rgb(255,255,255);
+    --bg-header: rgb(252,209,156);
+    --bg-body: rgb(179,179,179);
+    --bg-red: rgb(242,72,34);
+    --bg-blue: rgb(151, 71, 255);
+    --primary-white: var(--text-white);
+    --primary-black: var(--text-default-color);
+    --primary-grey: rgb(204, 204, 204);
+}
+
+*{
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+
+  h1, h2, p, ul, li, input {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.todo-container {
+    margin: auto;
+    position: relative;
+    max-width: 25rem;
+    max-height: 50rem;
+    overflow: auto;
+    background-color: var(--bg-body);
+    scrollbar-width: none;
+
+    header {
+        position: sticky;
+        top: 0;
+        padding: 2rem 1.5rem;
+        background-color: var(--bg-header);
+        border-radius: 0 0 0.5rem 0.5rem;
+        z-index: 10;
+
+        h1#date {
+            font-weight: normal;
+            margin-bottom: 0.5rem;
+            color: var(--bg-blue);
+        }
+
+        button {
+            position: absolute;
+            bottom: -1rem;
+            right: 0.75em;
+            width: 2rem;
+            height: 2rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 100%;
+            background-color: var(--bg-red);
+            color: var(--text-white);
+            cursor: pointer;
+        }
+    }
+
+    #todo-list {
+        padding: 1.25rem 0.5rem;
+        min-height: 40rem;
+
+        ul li {
+            position: relative;
+            display: flex;
+            list-style-type: none;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            align-items: center;
+
+            label {
+                user-select: none;
+
+                .tooltip {
+                    visibility: hidden;
+                    background-color: var(--primary-black);
+                    color: var(--text-white);
+                    max-width: 10rem;
+                    text-align: center;
+                    padding: 0.5rem;
+                    border-radius: 0.25rem;
+                    position: fixed;
+                    z-index: 1;
+                    white-space: normal;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                }
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+        }
+
+        input[type="checkbox"] {
+            width: 1.5rem;
+            height: 1.5rem;
+            accent-color: var(--bg-red);
+            border-radius: 10%;
+            flex-shrink: 0;
+
+            &:hover {
+                outline: none;
+            }
+
+            &~label {
+                text-wrap: nowrap;
+                user-select: none;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            &:checked~label {
+                text-decoration: line-through;
+            }
+        }
+    }
+
+    #create-task-modal {
+        display: none;
+
+        dialog#create-modal {
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            z-index: 20;
+            min-height: 10rem;
+            padding: 1rem;
+            border: 1px solid var(--primary-white);
+            border-radius: 12px;
+            background-color: var(--primary-white);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+            h2 {
+                margin-bottom: 1rem;
+            }
+
+            form {
+                height: auto;
+
+                label input[type="text"] {
+                    width: 100%;
+                    padding: 0.5rem;
+                    margin-top: 0.25rem;
+                    margin-bottom: 1rem;
+                    border: 1px solid var(--primary-grey);
+                    border-radius: 4px;
+                    font-size: 1rem;
+                }
+
+                button[type="submit"] {
+                    display: block;
+                    padding: 0.6rem;
+                    width: 100%;
+                    background-color: var(--bg-blue);
+                    color: var(--text-white);
+                    font-weight: 600;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 1rem;
+
+                    &:hover {
+                        background-color: rgb(0, 86, 179);
+                    }
+
+                    &:disabled {
+                        background-color: var(--primary-grey);
+                    }
+                }
+            }
+        }
+
+        &.open {
+            display: block;
+        }
+    }
+
+    #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--primary-black);
+        opacity: 0.5;
+        z-index: 10
+    }
+}
