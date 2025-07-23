@@ -1,72 +1,72 @@
 const DEFAULT_ITEM = [{
-  id: 1,
+  id: Date.now(),
+  created: Date.now(),
   label: 'Buy Pizza on the way to work'
 },
 {
-  id: 2,
+  id: Date.now() + 1,
+  created: Date.now(),
   label: 'Contrary to popular belief, Lorem Ipsum is not simply just a way to create new desert, and many more'
 }, {
-  id: 3,
+  id: Date.now() + 2,
+  created: Date.now(),
   label: 'Buy Pizza on the way to work'
 },
 ]
 
-export class TodoService {
+class TodoService {
   #todoList;
   #currentDate;
 
   constructor() {
-    const initialData = this.#getFromStorage() ?? [];
-    this.#currentDate = new Date().toLocaleString().split(",")[0];
-    if (!initialData.some(item => item.date === this.#currentDate)) initialData.push({
-      date: this.#currentDate,
-      items: DEFAULT_ITEM
-    })
-    this.#todoList = initialData;
-  }
-
-  get todos() {
-    return this.#todoList.find(item => item.date === this.#currentDate)?.items ?? DEFAULT_ITEM;
-  }
-
-  #getFromStorage() {
-    const raw = localStorage.getItem('todo');
-    return raw ? JSON.parse(raw) : [];
-  }
-
-  #saveToStorage(todos) {
-    localStorage.setItem('todo', JSON.stringify(todos));
+    const todos = getFromStorage();
+    const now = new Date();
+    this.#currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    if (isTodayListEmpty(todos, this.#currentDate)) todos.push(...DEFAULT_ITEM);
     this.#todoList = todos;
   }
 
-  toggleItem(id) {
-    const updated = this.#todoList.map(item => {
-      if (item.date === this.#currentDate) {
-        item.items = item.items.map(task => {
-          if (task.id === id) task.marked = !task.marked;
-          return task;
-        });
-      }
-      return item;
-    });
-
-    this.#saveToStorage(updated);
+  get todos() {
+    return this.#todoList.filter(todo => todo.created >= this.#currentDate);
   }
 
-  addItem(addItem) {
-    let newItem;
-    const updateList = this.#todoList.map(item => {
-      if (item.date === this.#currentDate) {
-        newItem = {
-          id: Math.random().toString(36).substring(2, 2 + 8),
-          label: addItem,
-        }
-        item.items.push(newItem);
-      }
-      return item;
-    })
-
-    this.#saveToStorage(updateList);
-    return newItem;
+  get overdueTodos() {
+    return this.#todoList.filter(todo => isTaskOverDue(todo, this.#currentDate));
   }
+
+  toggleTodoItem(id) {
+    const todoIndex = this.#todoList.findIndex(todo => todo.id === id);
+    this.#todoList[todoIndex].isChecked = !this.#todoList[todoIndex].isChecked;
+    this.#todoList[todoIndex].updated = Date.now();
+    saveToStorage(this.#todoList);
+  }
+
+  addTodoItem(newItemLabel) {
+    const newTodoItem = {
+      id: Date.now(),
+      created: Date.now(),
+      label: newItemLabel,
+    };
+    this.#todoList.push(newTodoItem);
+    saveToStorage(this.#todoList);
+
+    return newTodoItem;
+  }
+}
+
+function isTodayListEmpty(todo, currentDate) {
+  return !todo.some(item => item.created >= currentDate);
+}
+
+function isTaskOverDue(todo, currentDate) {
+  return todo.created < currentDate && (!todo.isChecked || todo.updated >= currentDate);
+}
+
+function getFromStorage() {
+  const storageTodoList = localStorage.getItem('todo');
+  return storageTodoList ? JSON.parse(storageTodoList) : [];
+}
+
+function saveToStorage(todos) {
+  localStorage.setItem('todo', JSON.stringify(todos));
 }

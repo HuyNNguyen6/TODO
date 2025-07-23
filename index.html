@@ -6,29 +6,28 @@
     <link rel="stylesheet" href="./src/index.css">
     <title>Todo App</title>
   </head> 
-  <script src="./src/script.js" type="module"></script>
   <body>
     <div class="todo-container">
       <header>
         <h1 id="date"></h1>
         <h2 id="month"></h2>
-        <button class="add-button" id="add-button" aria-label="Add new task" aria-controls="create-modal">+</button>
+        <button type="button" class="add-button" id="add-button" aria-controls="create-modal">+</button>
       </header>
       
       <main id="todo-list" aria-label="Checklist for Todo item">
-        <ul></ul>
       </main>
-      
+    </div>
       <div id="create-task-modal">
         <dialog id="create-modal" open>
           <h2>Create New Task</h2>
-          <form>
+          <form id="create-form">
             <label>Task label <input type="text" name="label" id="task-label" required></label>
-            <button id="submit-button" type="submit" disabled> Add task</button>
+            <button id="submit-button" type="submit">Add task</button>
           </form>
         </dialog>
         <div id="overlay"></div>
       </div>
-    </div>
   </body>
+  <script src="./src/todo.service.js"></script>
+  <script src="./src/script.js"></script>
 </html>

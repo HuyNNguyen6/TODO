@@ -1,78 +1,89 @@
-import { TodoService } from "./todo.service.js";
-
 const todoService = new TodoService();
-const listE = document.querySelector('#todo-list ul');
-const addItemInput = document.getElementById('task-label');
-const submitButton = document.getElementById('submit-button');
+const todoContainerElement = document.querySelector('#todo-list');
+const addItemInput = document.querySelector('#task-label');
+const submitButton = document.querySelector('#submit-button');
 
-document.getElementById('overlay').addEventListener('click', toggleModal);
-document.getElementById('add-button').addEventListener('click', toggleModal);
+document.querySelector('#overlay').addEventListener('click', toggleModal);
+document.querySelector('#add-button').addEventListener('click', toggleModal);
 submitButton.addEventListener('click', createTask);
-addItemInput.addEventListener('input', checkValid);
 
-appendDataToDOM();
+appendTodoListElement();
 
-function appendDataToDOM() {
+function appendTodoListElement() {
   const currentDate = new Date();
-  const date = document.getElementById('date');
-  const month = document.getElementById('month')
-  const b = document.createElement('b');
+  const dateELement = document.querySelector('#date');
+  const monthElement = document.querySelector('#month');
+  const dayELement = document.createElement('b');
+  const todoListElement = document.createElement('ul');
 
-  b.append(transform(currentDate, 'day'));
-  date.append(b, ', ', transform(currentDate, 'date'));
-  month.append(transform(currentDate, 'month'))
+  todoListElement.id = 'todo-items';
+  dayELement.append(transformDate(currentDate, 'day'));
+  dateELement.append(dayELement, ', ', transformDate(currentDate, 'date'));
+  monthElement.append(transformDate(currentDate, 'month'));
 
-  todoService.todos.forEach(item => appendTaskElement(item));
+  todoService.todos.forEach(item => todoListElement.append(appendTaskElement(item)));
+  todoContainerElement.append(todoListElement);
+  appendOverdueListElement();
 }
 
 function appendTaskElement(item) {
-  let li = document.createElement('li');
-  let input = document.createElement('input');
-  let label = document.createElement('label');
-  let span = document.createElement('span');
+  const todoItem = document.createElement('li');
+  const checkBox = document.createElement('input');
+  const todoLabel = document.createElement('label');
+  const labelTooltip = document.createElement('span');
 
-  input.id = item.id;
-  input.type = 'checkbox';
-  input.checked = item?.marked;
-  label.innerText = item.label;
-  label.htmlFor = item.id;
-  span.innerText = item.label;
-  span.classList.add('tooltip');
-  span.id = 'tooltip-' + item.id;
+  checkBox.id = item.id;
+  checkBox.type = 'checkbox';
+  checkBox.checked = item?.isChecked;
+  todoLabel.innerText = item.label;
+  todoLabel.htmlFor = item.id;
+  labelTooltip.innerText = item.label;
+  labelTooltip.classList.add('tooltip');
+  labelTooltip.id = `tooltip-${item.id}`;
 
-  input.addEventListener('click', () => todoService.toggleItem(item.id));
-  label.addEventListener('mouseenter', (event) => showTooltip(event, item.id));
-  label.addEventListener('mouseleave', () => hideTooltip(item.id))
+  checkBox.addEventListener('click', () => todoService.toggleTodoItem(item.id));
+  todoLabel.addEventListener('mouseenter', (event) => showTooltip(event, item.id));
+  todoLabel.addEventListener('mouseleave', () => hideTooltip(item.id));
 
-  label.append(span);
-  li.append(input, label);
-  listE.append(li);
+  todoLabel.append(labelTooltip);
+  todoItem.append(checkBox, todoLabel);
+  return todoItem;
+}
+
+function appendOverdueListElement() {
+  if (todoService.overdueTodos.length == 0) return;
+  const overdueLabelElement = document.createElement('h3');
+  const overdueListElement = document.createElement('ul');
+
+  overdueListElement.id = 'overdue-items';
+  overdueLabelElement.innerText = 'Overdue Tasks';
+  todoService.overdueTodos.forEach(item => overdueListElement.append(appendTaskElement(item)));
+  todoContainerElement.append(overdueLabelElement, overdueListElement);
 }
 
 function createTask() {
-  if (!addItemInput.value.trim()) return;
-  const newItem = todoService.addItem(addItemInput.value.trim());
-  appendTaskElement(newItem);
-  addItemInput.value = "";
-  checkValid();
-  toggleModal();
+  if (!!addItemInput.value.trim()) {
+    const todoListElement = document.querySelector('#todo-list #todo-items');
+    const newItem = todoService.addTodoItem(addItemInput.value.trim());
+    todoListElement.append(appendTaskElement(newItem));
+    toggleModal();
+  }
+
+  return false;
 }
 
-function checkValid() {
-  if (!addItemInput.value.trim()) {
-    submitButton.disabled = true;
-  } else {
-    submitButton.disabled = false;
-  }
+function checkButtonValid() {
+  submitButton.disabled = !addItemInput.value.trim();
 }
 
 function toggleModal() {
-  const dialog = document.getElementById("create-task-modal");
+  const dialog = document.querySelector('#create-task-modal');
   dialog.classList.toggle('open');
+  addItemInput.value = '';
 }
 
 function showTooltip(event, idx) {
-  const tooltip = document.getElementById(`tooltip-${idx}`);
+  const tooltip = document.querySelector(`#tooltip-${idx}`);
   if (!tooltip) return;
   tooltip.style.visibility = 'visible';
   tooltip.style.left = `${event.clientX + 10}px`;
@@ -80,12 +91,12 @@ function showTooltip(event, idx) {
 }
 
 function hideTooltip(idx) {
-  const tooltip = document.getElementById(`tooltip-${idx}`);
+  const tooltip = document.querySelector(`#tooltip-${idx}`);
   if (!tooltip) return;
   tooltip.style.visibility = 'hidden';
 }
 
-function transform(value, format) {
+function transformDate(value, format) {
   const date = new Date(value);
 
   if (isNaN(date.getTime())) return '';
