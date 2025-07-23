@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/index.css">
-    <title>Todo App</title>
-  </head> 
-  <body>
-    <div class="todo-container">
-      <header>
-        <h1 id="date"></h1>
-        <h2 id="month"></h2>
-        <button type="button" class="add-button" id="add-button" aria-controls="create-modal">+</button>
-      </header>
-      
-      <main id="todo-list" aria-label="Checklist for Todo item">
-      </main>
-    </div>
-      <div id="create-task-modal">
-        <dialog id="create-modal" open>
-          <h2>Create New Task</h2>
-          <form id="create-form">
-            <label>Task label <input type="text" name="label" id="task-label" required></label>
-            <button id="submit-button" type="submit">Add task</button>
-          </form>
-        </dialog>
-        <div id="overlay"></div>
-      </div>
-  </body>
-  <script src="./src/todo.service.js"></script>
-  <script src="./src/script.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./src/index.css">
+  <title>Todo App</title>
+</head>
+
+<body>
+  <div class="todo-container">
+    <header>
+      <h1 id="date"></h1>
+      <h2 id="month"></h2>
+      <button type="button" class="add-button" id="add-button" aria-controls="create-modal">+</button>
+    </header>
+
+    <main id="todo-list" aria-label="Checklist for Todo item">
+    </main>
+  </div>
+  <div id="create-task-modal">
+    <dialog id="create-modal" open>
+      <h2>Create New Task</h2>
+      <form id="create-form">
+        <label>Task label <input type="text" name="label" id="task-label" required></label>
+        <button id="submit-button" type="submit">Add task</button>
+      </form>
+    </dialog>
+    <div id="overlay"></div>
+  </div>
+</body>
+<script src="./src/todo.service.js"></script>
+<script src="./src/script.js"></script>
+
 </html>

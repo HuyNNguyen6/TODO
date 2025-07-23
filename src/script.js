@@ -1,11 +1,11 @@
 const todoService = new TodoService();
 const todoContainerElement = document.querySelector('#todo-list');
 const addItemInput = document.querySelector('#task-label');
-const submitButton = document.querySelector('#submit-button');
+const createTodoForm = document.querySelector('#create-form');
 
-document.querySelector('#overlay').addEventListener('click', toggleModal);
-document.querySelector('#add-button').addEventListener('click', toggleModal);
-submitButton.addEventListener('click', createTask);
+document.querySelector('#overlay').addEventListener('click', toggleDialog);
+document.querySelector('#add-button').addEventListener('click', toggleDialog);
+createTodoForm.addEventListener('submit', createTask);
 
 appendTodoListElement();
 
@@ -44,9 +44,9 @@ function appendTaskElement(item) {
   checkBox.addEventListener('click', () => todoService.toggleTodoItem(item.id));
   todoLabel.addEventListener('mouseenter', (event) => showTooltip(event, item.id));
   todoLabel.addEventListener('mouseleave', () => hideTooltip(item.id));
-
   todoLabel.append(labelTooltip);
   todoItem.append(checkBox, todoLabel);
+
   return todoItem;
 }
 
@@ -61,39 +61,38 @@ function appendOverdueListElement() {
   todoContainerElement.append(overdueLabelElement, overdueListElement);
 }
 
-function createTask() {
+function createTask(event) {
+  event.preventDefault();
   if (!!addItemInput.value.trim()) {
     const todoListElement = document.querySelector('#todo-list #todo-items');
     const newItem = todoService.addTodoItem(addItemInput.value.trim());
     todoListElement.append(appendTaskElement(newItem));
-    toggleModal();
+    toggleDialog();
   }
-
-  return false;
 }
 
 function checkButtonValid() {
   submitButton.disabled = !addItemInput.value.trim();
 }
 
-function toggleModal() {
+function toggleDialog() {
   const dialog = document.querySelector('#create-task-modal');
   dialog.classList.toggle('open');
   addItemInput.value = '';
 }
 
 function showTooltip(event, idx) {
-  const tooltip = document.querySelector(`#tooltip-${idx}`);
-  if (!tooltip) return;
-  tooltip.style.visibility = 'visible';
-  tooltip.style.left = `${event.clientX + 10}px`;
-  tooltip.style.top = `${event.clientY + 10}px`;
+  const tooltipElement = document.querySelector(`#tooltip-${idx}`);
+  if (!tooltipElement) return;
+  tooltipElement.style.visibility = 'visible';
+  tooltipElement.style.left = `${event.clientX + 10}px`;
+  tooltipElement.style.top = `${event.clientY + 10}px`;
 }
 
 function hideTooltip(idx) {
-  const tooltip = document.querySelector(`#tooltip-${idx}`);
-  if (!tooltip) return;
-  tooltip.style.visibility = 'hidden';
+  const tooltipElement = document.querySelector(`#tooltip-${idx}`);
+  if (!tooltipElement) return;
+  tooltipElement.style.visibility = 'hidden';
 }
 
 function transformDate(value, format) {

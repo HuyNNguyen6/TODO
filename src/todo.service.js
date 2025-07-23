@@ -16,22 +16,22 @@ const DEFAULT_ITEM = [{
 
 class TodoService {
   #todoList;
-  #currentDate;
+  #currentTime;
 
   constructor() {
     const todos = getFromStorage();
-    const now = new Date();
-    this.#currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-    if (isTodayListEmpty(todos, this.#currentDate)) todos.push(...DEFAULT_ITEM);
+    const currentDate = new Date();
+    this.#currentTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime();
+    if (isTodayListEmpty(todos, this.#currentTime)) todos.push(...DEFAULT_ITEM);
     this.#todoList = todos;
   }
 
   get todos() {
-    return this.#todoList.filter(todo => todo.created >= this.#currentDate);
+    return this.#todoList.filter(todo => todo.created >= this.#currentTime);
   }
 
   get overdueTodos() {
-    return this.#todoList.filter(todo => isTaskOverDue(todo, this.#currentDate));
+    return this.#todoList.filter(todo => isTaskOverDue(todo, this.#currentTime));
   }
 
   toggleTodoItem(id) {
@@ -54,12 +54,12 @@ class TodoService {
   }
 }
 
-function isTodayListEmpty(todo, currentDate) {
-  return !todo.some(item => item.created >= currentDate);
+function isTodayListEmpty(todo, currentTime) {
+  return todo.every(item => item.created < currentTime);
 }
 
-function isTaskOverDue(todo, currentDate) {
-  return todo.created < currentDate && (!todo.isChecked || todo.updated >= currentDate);
+function isTaskOverDue(todo, currentTime) {
+  return todo.created < currentTime && (!todo.isChecked || todo.updated >= currentTime);
 }
 
 function getFromStorage() {
