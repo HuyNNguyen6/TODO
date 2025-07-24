@@ -1,0 +1,366 @@
+2/7
+- Block is an element that take full width available (stretches out from left to right) and each element will add some margin before and after the element specific to each browser user agent stylesheet (eg p tag 1em , h1 0.67em, h2 0,75em,...). Block element start on a new line.
+- Inline element width will only wrap the content if no specificity provided (margin, padding, border, static width).
+- normalize css: a set up style rule apply to the browser to guarantee consistency in all browser.
+- attribute: 
+ + provide additional information about the HTML element
+ + sometime the attribute value in element is require for 3rd party software - add-on library to work/add functionality to the browser.
+ + style attribute work as an inline style for html element although it directly modified the element.
+ + ARIA (Accessible Rich Internet Applications): a specific attributes that modify element is translated/known by the browser accessibility tree. Aria modify the element semantics or add semantics to element with no native semantics.
+ + One core aspect of ARIA is a system of roles. which provide the accessibility term which describe the semantics of the element.
+- Document flow: the arrangement of html element defined by positioning statements and the order of appearance of that element. How the position is defined according to the coordinate of the element X/Y.
+- border-sizing: how to calculate the size of the element. content-box wont add the border and padding to the initial size of the content in contrast of border-box. Note: should you answer what does border-box meaning, what is content and what is the behavior of margin.
+- form: a collection of user input which information is group to display a meaningful content, after get the corresponding information it will be send directly or modified by code to send to the server for processing. External resource.
+ + Use label/fieldset and legend to add more semantics to the form. using fieldset and legend are crucial for dividing a form into subform. Grouping other element related to the input group.
+ + Usage of form behavior like action and adding attribute to form tag provide more information about the form created. autocomplete also good if the form can be repeated multiple time.
+ + Behavior when using submit in the form: find the button or the input type of submit to submit the form.
+- Layout: the structure of how the webpage is viewed. There multiple way to construct a webpage layout but the famous one are flexbox layout and grid layout.
+  + Float also is a good approach but only in limited use cases, sometime float is tied to the flow of the document and decreasing the flexibility view (responsive view).
+- Selector: how to use optimal: use the current as optimal as possible, no need for more indentifier, straightforward, using wildcard op +, ~, <.
+- Variables: there are three wahy to declare variables:
+ + let, const: modern variable declaration, const is declare of unmutated values.
+ + var is the old variable declaration. 
+ + variable name should be meaningful and provide info about the value they hold.
+- Data types: a value in js always hold a certain type. even null and undefined have a type for it.
+ + primitive type: number, bigint, Boolean, undefined, string, symbol, null.
+ + null is explicitly setting an variable to not hold any value, the purpose of setting null value is to clear or signify there are no value holding by that vars. There are error where js interpret null as object but was kept for compatibility.
+ + undefined is implicitly setting for missing/uninitialized value. This behavior is set by the js engine. When user create a variable without initialized it value it will hold undefined as it default value. type of undefined is undefined.
+- alert prompt confirm
+ + alert send an information pop up on browser.
+ + prompt show an input modal for user.
+ + confirm show question with confirm cancel button.
+- Type conversions (coercion): there are implicit and explicit way to converse a var type to different type:
+ + Explicit: convert a value using built-in method from js lib like String, Number, Boolean. Any failed convert to number will produce a NaN value.
+ + Implicit: using compare expression using non-strict comparison will also make type conversion to make them hold the same type, using math operations also make type conversion (all math operator except + will convert all its value to type number).
+- Comparison: compare have a strict and non-strict equality, string compare by using the indexing number of ascii table. null undefined are equal in non-strict equal and not equal with everything in any circumstance, null conversion to 0 in number undefined convert to Na, number compare by value.
+
+3/7
+- if, ?: logical comparison
+ + if is the universal way to execute a block of code prior of a condition, the condition is hold in a parentheses and if the result is true it will execute the if block code inside of it. There also a fallback using else to run the code when the condition is not fulfill there also an else if statement checking like a waterfall order.
+ + ? ternary operator provide a shorter syntax but it sole purpose not just executing code block but also use for assigning value. Unlike If statement, ternary operator require user to provide both the true and false case. You can use ternary to execute code block but it is better to use if, use ? when assigning a conditional value. Like if and else if you can chaining ? operator as you want but it could be tedious to read.
+- Logical Expression:
+ + || return the truthy value from left to right
+ + && return the first falsie value, if all value is truthy then return the last right value. there are a conditioning render using AND operator which can be useful sometime.
+ + ! convert a value to inverse Boolean value of it (value after ! will treat as a boolean)
+- Nullish coalescing operator (??): return the defined value from left to right, it didn't calculate based on truthy falsie value but rather if a value isn't undefined or null. key difference between ?? and || is || return the first truthy value means "", false, 0 is count as a falsie value, ?? dont have this problem and count them as a defined value. Programmer should check the usage between ?? and || for its usage. Dont use ?? with any logical operator without parentheses.
+- Loop while for:
+ + while looping a block of code until the condition is false. if while is defined before the expression block then it will run after checking the condition. using do while will guarantee 1 iteration before checking the condition. U should the position of adding operator ++ or -- if the op is behind the value then the condition is checked before the mutating applied.
+ + for loop is like normal but u can skip any part inside the parentheses but make sure empty the condition u skip with a ; to prevent error. unlike while if u use increase decrease operator then the new value will applied immediately but for loop third part will run after the iteration code so the position of bitwise op is not necessary.
+- switch statement: create an each case scenario if a value matching that case then it will execute that case, after each case should provide a break statement to prevent the execution of the next case, the default case is run when there aren't any matching case. you can group case by place the case next in line with each other. switch case compare is type sensitive so better watchout.
+- Functions: 
+ + A block of reusable codes to perform a specific task which mean the logic for using these codes is defined once and can be used anywhere else. 
+ + Function is defined using the function keyword. there are 2 type of function (pure function and impure). the function expression has it own lexical environment and can access parent lexical. if there are value of same name inside it will take the var to the closest lexical scope.
+ + Parameters can be pass through defined params in the parentheses or using arguments, some argument can be defined with default values when the function not providing arguments, there are argument object . 
+ + when the function is big then there worth splitting into fewer function for the sake of readability and clean code. provide a comment on a complex expression also a good approach.
+ + Function name should be short, brief and show what that function does. If the function is used for a complex action with difficult term, using js doc is a good option. Also avoid keyword that defined by the engine.
+- Function Expression: In term, function declaration means create a reusable block of code with predefined name and functionality, function expression means creating a new function in the middle of an expression/statement (expression is a valid unit of code that resolves to a value and function also is a special kind of value). The behavior of lexical scope in FE is tie to the defined of let, const.
+ + function expression isn't hoisting like function declaration but it's tie to the lexical scope where it created so the function can only call after it initialization.
+ + because function is a special type of value so if user tried to access the function it should show the code blocks inside of it. and since function also is a value then it can be passed through function argument as a callback function.
+- Arrow function basics: a better syntax for Function Expression 
+  + if function only return then it doesn't need curly braces
+  + the syntax consist of () = > compact, brevity and readable 
+- JS special: use strict is use for new fashioned js , without it still work normal but there are some intuitive behavior.
+- Debugging in browser:
+ + Console: an interface to type commands for execute or see logging messages emit by source codes.
+ + Sources: show the code structure and feature bar for debugging purpose
+  * Watch: show current values on the expression we place breakpoint.
+  * Call Stack: the nested call chain usually by function.
+  * Scope: the available variables inside the breakpoint local scope and the global scope.
+- Polyfill and transpiler: a essential tool for compatibility with older browser which mean the new code feature could run on old browser through this tools.
+ + Transipler: a code converter or translate source code to another source code, it can parse the modern code to an older source code syntax that could work with outdated engine. Eg: translating ?? to !== undefined and !== null.
+ + Polyfill: is a set of code usually function provide for library built in function, for older engine / browser there usually dont have every built-in function UpToDate so polyfill is an implements feature in older env that don't support them natively in other way fills in the gap of the missing feature.
+- Object: a special data types use to store collections of data or more complex entities. In Js object is the core aspect of the language.
+ + syntax: store using {...}, store as a key:value separate by a comma, properties is string/symbol and value can be anything. 
+There are multiple way to access a property in an object: access directly with a dot foward with the property name or using the square bracket for preference property could be multiple
+word so accessing this with comma is impossible but you can use square brackets to access it. there is a shorthand property defined by references directly with a variable.
+ +  there are no limitations on property names beside __proto__, to loop an object you can use for in which return each pair of key:value and the order of property is special sorted:
+interger is sorted from low to high and other is appear in creation order.
+
+4/7
+- Object references and copying: unlike variable for primitive types which store data as an actual value, object store data reference which mean value of object is store in a memory address and object can access those area
+and showing the value.
+ + object store data as a reference to an address value and when the connection will be garbage collected
+ + comparing two object value will compare it preference, which is compare address memory for that 2 vars so strict and un-strict compare behave the same.
+ + const object can be mutate because the object only unmutated the reference address it begin not the value it hold afterwards, so you can add, delete or change the property and it value.
+ + to clone a value you can use spread op or object assign but keep in mind if the value is another object then the old val and new val property also point to the same reference although they have different address to fix that we use structuredClone
+- Garbage collection: a mechanism for managing memory by monitoring value and check for reachability.
+ + Reachability: A concept where a value is "reachable" which mean values are accessible and usable somehow. If a value is unreachable then it will get dispose by this collector.
+ + With references the engine will check if that references is reachable from the global or any current call function. Eg: if object a ref 1 way to object b but the global scope only ref to the object b then object a get dispose although it is referencing other value because the object a is unreachable from every way
+ + 3 optimization: Generational collection, Incremental collection, Idle-time collection.
+- object method, this: object is a collection of value so it can hold function since its a special kind of function.
+ + You can add object method when create the object or using an function expression deconstruct, there also shorthand to create the method.
+This only evaluate in call time which mean this references only work in build time or declaration/execution context, if you want to access this out of it definition scope then it will prompt an error.
+ + when using this keyword in object's method it likely refer to the object itself. this also can be use for normal function declaration (not expression)
+so when assign a property to be a function it likely take the parent object as reference to this.
+- constructor, 'new': when user want to create multiple object with the same schema, creating each one will be exhausted so there are a new keyword to create a new object from an existing
+schema.
+  + you can use a constructor function as a schema to build a new object. when using new with a constructor function it create an empty object, bind the this and add property to it and return the value of this.
+  + The new.target is checking if the call is using as a normal function or a constructor function. if constructor function have a manual return and it doesn't return a primitive value then value in return expression will pass to the new object.
+- Optional chaining ?: a conventional way to make sure if a property of an object isnt defined it wont causing runtime error. if the value of their property is undefined or null it will return undefined as default. Only use this when its okay that
+something doesn't exist or the value of that is optional. short-circuiting: if the righthand side doesn't fulfill the optional changing then the evaluation will stop, which mean other call behind the ?. that got undefined will not be called. this can also work for function and inconveniently array...
+- symbol type: a unique identifier and that's it. there are 'fun' way to create a "hidden" property in object which require the symbol itself to access to it, sometime this can be useful :3. when you want a symbol to be access by all the app you can use Symbol.for to create a global symbol.
+- Methods of primitives: except null and undefined primitive have some helpful built-in method. How this work: when user tried to access its property or method the engine will create a wrapper object to execute that expression and then remove that wrapper when its finish. If you tried to add a property to a primitive value in strict mode it will prompt error and in non-strict it will return undefined when tried to access the property.
+- Numbers: there are 2 type of number: normal number (< 2^53 -1, > -(2^53 -1)) and bigInt (exceed previous requirement). using _ as seperate 0 and e for big/small number/float. There also way to access the number using hex, octal and binary format.0
+ + using round method can be helpful: ceil round to top, floor round to bottom and round is divide if the number > .5 or not. trunc on otherhand remove the decimal point.
+ + Imprecise cal: decimal number really dont add up like it should be but will have a buffer variable which make comparison became imprecise.
+ + Number.isNaN check if the val belong to number and that val is nan or not, isNan convert val to number and check it is nan or not.
+- String: 
+ + 3 type of quote " ' `.
+ + using \ as an escape character to add symbol to the string
+ + you can access the character of a string using [] or at providing an index.
+ + slice and substring use to get a substring but there behavior with start and end index is different
+- Arrays: a stored ordered collection, the value it hold can be anything.
+ + get an element in the collection use [] or at() and provide negative number will start from the end of the array.
+ + pop take the element from the end remove and return it, shift: take element at first then move the second to first, unshift add element to beginning of the array.
+ + array can be create like normal declaration or using new array construct but this way are trickier and using [] is shorter.
+- Array methods: 
+ + concat: create new array from the previous one could provide the extra element to add to the new one.
+ + slice: copy new array from start till end into it.
+ + flat: flatten the multidimensional array.
+- Iterable: Looping through an array or object properties is call iterate. Each object/array contain [Symbol.iterator] function that return an iterator object: this object contain current value, end value and a next method to defined what to do when the iterate is done (the method return a value and Boolean done property). when for of is call the return value property from item is the current item get before of expression. Array.from can convert an array-like structure object to an array itselft but other hand an object that has iterator function can be loop for of like normal array.
+
+7/7
+- Map and Set:
+ + Map is a special way to store data collection as key-value type whether object only allow string and symbol as their property, map will allow any type of key and it provide a set of assist method for iterate, get, add, delete these key and value. to iterate over a map you can use .keys or .values or .entries to flatten those out.
+ + keep in mind obj.entries and map.entries is different: object.entries will convert object to a map with key is property, map.entries will create an iterator which return [key, value] to be iterated. Object.fromEntries will convert a map to an object
+ + Set is special version of Array where the value occur only one, any added duplicate will be terminated. There also some built in function for Set that check, add, delete value. Map and Set dont have length property but have size proprety
+ + To iterate over a Set you can use for...of normally or just use method forEach but here the twist, the param for for Each of set consist of value, value, set not just normal value, index because Set is structurely close to Map but have behavior of Array :V ?
+Note: although using ... operator the behavior for spread an array and object is not the same mechanism
+ + spread in array mean iterate through it, take each value as a return from the next() function in Symbol.Iterator or the yield value when defined as function generator, 
+ + spread in object mean flatten/copy the object property and parse it to other variable.
+- WeakMap and WeakSet: 
+ + WeakMap: different from Map is its key must be an object. Reference to garbage collection chapter if an object reference is use for Map key and that variable is set to be null, the key inside map still exist and the object isn't removed from memory. Weakmap on the other store the property as object and if that object is overwrite the refrence then the item in WeakMap will be removed thus call it Weak map, weak map dont have iterator method.
+ + WeakSet: Similar to WeakMap only store value and will clean up after object references is cleared.
+- Object.keys, values, entries: iterate through an object - these method are built in to loop through the object with provide value, this is different to the map.keys method for Map because this will return an iterator and Object.keys return an array.
+- Destructing assignment: a special syntax to extract property, item individually  form its respective object, array. Any val that can be iterate on the right sight can be destruct, same as object.
+ + Array can be extract using destructing and when you want to extract some of it you can group all other to the rest op, destruct variable can have any name.
+ + Object destruct var need to be identical to the property it want to extract and you can use ':' to reassign it name again so its mandatory to include the right property name on the left side.
+ + Nested destruct is great too :V
+- Date and Time: a built in class to manage date time format and other time zone and locale.
+- Json stringify: a parse/covert method for storing-sending data to other origin. 
+- Recursion and stack: Recursion is a programming term for calling the function from itself, this is used to solve problem in elegant without producing tedious code to read. With each call to itself a stack will added and the queue function and the execution run from the newest stack to oldest one, you can think of it as a callback loop
+- Rest and spread:
+ + Rest operator is called when the function take in a lot of parameter and want to cover the rest to one array, rest usually use for array
+ + spread operator means spreading out the item or expands an iterable object into items, spread can be use on object 
+- Variable scope, closure: each function has its own lexical scope and the lexical scope can only access value inside of it and outside the global scope.
+ + code block: a zone where statement is declared and executed, variable inside code block only visible on itself and its nested block.
+ + lexical environment: every scope, code block, running function have an object known as Lexical Environment. In term lexical env of a scope show it current local value, what inside of it and the reference to the scope outside that create/define the scope and there also a global property to refer to the global scope. 
+  * Variable: the script start, the lexical env of that scope is pre-populate with the declared variables this could say that let, const are hoisting but giving an TDZ until its scope is accessed and the statement is initialize.
+  * Function declaration: unlike it expression version function declaration initialize when defined (ref to Function) so its mean when a lexical environment is created then the function is ready to use.
+  * When a function is called the lexical env created from that call and store the variable inside the function and parameter if there are, binding the function as lexical scope and the parent as outer scope. When execute a statement that need to access a variable, it will run through the inner lexical env first then move to outer one until it reach the global env.
+  * Running function: there is a gotcha if you tried to return a reference var and return a function. when return a reference value the reference is pass to the caller of this function and there wasn't any reference to the lexical scope of it so the lexical env got garbage collected. On the other hand, when return a function that take the caller var, it create a link between the return function lexical and its outer lexical scope, so when calling the return function the outer lexical still perverse and its value can be accessed. This generally called closured REMEMBER THIS. Lexical env die when it is unreachable
+ * when referencing lexical scope, js engine will tried to optimized the parent scope to check if there are unusable var and opt it out.
+- Global object: global var/obj is accessible anywhere from the app. by default these are built in with the language or the environment. Some notable global obj is window, document. The global object has a universal name globalThis.
+- Function object, NFE: function are special kind of object value, so function also have object property. when defined a function you can use the function name as the reference to the wrapper object of the function and the new defined property can also accessible. Name Function Expression allow the function to reference it self internally thus make recursion available and this function wont be visible outside of it scope
+- New Function: when creating function using new it outer Lexical scope is set to the global not the scope where it defined so accessing that scope will prompt error. This have a practical way to use when these function destined to be pure and receive the body via data from server , etc.
+- Decorators and forwarding, call/apply:
+ + Decorators or wrapping function is a higher order function paradigm which take int the function adding some extra action that doesn't affecting the execution of the function, this could be  added log, caching value or sometime intercept the execution of the function. 
+  * an example of this is caching decorator for tedious - cpu exhaust function, these custom-defined decorator will take the execution of the function, save it in an internal caching set and checking whether the function was call with the same parameter as previous one. then the wrapper will return the value immediately without running the function one more time.
+  * when using the decorator with object method you must bind the execution context to the method if there are usage of 'this' keyword since we pass the method as a function declaration only but not the execution context where it run, it will prompt error where the this is escape from it context.
+ + call, apply: To fixing error where we calling this key in object method, we can bind the context for this to run properly 
+ + method borrowing: using a method and bind the context to it and run the method usually with the new context we provide and ignore the previous context.
+- Function binding: when object method which using 'this' is passed to other place from the object then the context is lost there are 2 way to manage this
+ + Using wrapper function this way when sending the function to other place then call it, the lexical scope inside will reference to the outer environment and thus bind the right context/object to this but it came with a cost: any change in the object when the function is execute will be visible when the call is finished.
+ + bind on the other hand is a solid solution, when binding the context to method/function call it will give the reference to the object itself not the variable inside the lexical env, thus changing the variable reference wont affect the binding of the function, changing the property of the object on other hand will change behavior of the bind function (as it should be).
+ + Another usage of this is partial functions which mean take a function defined with parameter and transform it to other function without affecting the parent function. this can be useful when some parameter is repeated and you want to group it like this fnA(a,b) => fnB = fnA.bind(null, 123) then fnB will only need 1 parameter b and the a one is defined using bind.
+
+8/7
+- Arrow function: a special feature for defining function expression not just for shorthand and readability. Arrow function have no 'this' which mean there behavior didn't tie to a specific execution context, any this call in arrow function resulting calling the outer this or some case the global one. Arrow functions doesn't have argument parameter since it doesn't have its own execution context. They dont have super although they share the same __proto__ as normal function but arrow function dont have property prototype.
+- Property flags and descriptors: 
+ + Property flags: beside the value that property hold there also 3 special property (writable, enumerable, configurable, value) call property flags. those default value will be true. 
+  * writable check if value can be change or modified (build in Object.freeze will modify this property so that object is temporally not modified)
+  * enumerable check if property can be listed inf loop(for...in or for...of if use [Symbol.Iterator] and Objet.keys)
+  * configurable check if property the flag attribute. Note: if this property change to false then there are no way to change it back Object.seal will make the object properties flag to false.
+  * value hold the value of property
+ + using Object.getOwnPropertyDescriptor to get the property flag list, Object.defineProperties to modified these flags.
+- Property getters and setters: object property have 2 type: data property and accessor property and get set is a type of accessor property.
+ + Getter/Setter: this can be set manual define get/set in the object method, when object is call with the property, it will run the get method and when user manual update the property it will call the set method with parameter get from right side of assign statement.
+ + Accessor descriptor: create a get and set method via object.defineProperty, this can be convenient when user also want to set props flag for it. in this case when define get/set method it didn't need the prop name behind of it. Note: when define get/set the value flag is omit so you should not include it in.
+- Prototypal inheritance: every variable have a hidden property call [[Proptotype]] which can be null or link to other object.
+ + Usually prototype is hidden but you can change it and modified it using __proto__ or Object.getPrototype,... everything in js is either an object or contain an object wrapper so the Prototype props will exist in it.
+ + the object we get when getting __proto__ is call a prototype, the object we create are inherit property, method from that prototype if its missing. Note that prototype only read property not write/delete them. When we define a method that have the same name and arguments, we are creating a new one not overwriting the existing prototype method.
+ + When using method inherit from prototype it will use the execution context of the current object, not the prototype object so keep in mind with that.
++ for...in will iterate through the object props and its prototype props, beside those defined with enumerable false.
+- F.prototype: A function can set it prototype to an object, this only take action when we define an object with new Function. the engine initialize and fill the [[Prototype]] value as F.prototype we defined
+- Native prototype: Every built-in object have the same pattern either inherit prototype from array, object, date.
+ + Primitive Value also have object prototype to help them with wrapper object.
+ + Prototype can be modified but dont recommend edit it rather then create polyfill.
+- Prototype methods, objects without __proto__: there are other syntax for create object with prototype using Object.create this is useful because this also provide a property descriptor to add/edit property of the new object. 
+ + Object.set/getPropertyOf(obj) is a get set method for __proto__
+
+9/7
+- Classes basic syntax:
+ + using class keyword provide with a name will create an object prototype that if an object is defined using new will inherit the defined props. when run with a constructor it will initialize the properties inside for us.
+ + A class is a fundamental concept in object-oriented programming (OOP) that serves as a blueprint or template for creating objects (known as instances). a fun thing is when create a class its is label a function type with a special property [[IsClassConstruct]] set to true so if we invoke the class it will result in error.
+ + in Class every method is not iteratable unlike creating object from function this reduce code complexity and prevent unexpected behavior.
+- Class Inheritance: Class inheritance mean one class extend another class.
+ + extend: when developer want a class to have a set of functionality from another class without creating identical one they use extend to the class they want to inherit these functionality this work like the lexical env work. The access will check the current instance class to contain the value then move to the parent and so on.
+ + class child can relapce the functionality of the father class by providing an identical method as it own, but sometime we want to tweak it not replace it, this where super come in hand, super are like this but it refer to the parent class. so when you use super.someMethod() it will reference to the method defined in the parent class. 
+ + super() is reference to the constructor of the parent itself, when create a constructor for child class call super with provided arguments is mandatory since it is derived expect the parent also run the constructor. When a child class isn't provide any constructor then the Parent Class constructor will be called and used it own field value. You also should check the 4 characteristic of OOP: Encapsulation, Inheritance, Polymorphism, Abstract.
+ + when a method is called it internal using this, not matter what kind of method it is, the context always depend on the object that call it so some time when using this.__proto__ as a reference to the father its will result in circular invoke. this is kinda annoy so Class method have a property call [[HomeObject]] that reference the father class through super call.
+ + method in class are not free since the [[HomeObject]] is bind to the method. anycall with super(not this) will result in referencing to the parent class
+- Static method, property: Static method property is a unmutated property create that live inside the Class itself, overwrite this is impossible and user dont need to create an instance of it to access these value/method. Static method/prop are not bound by any instance but rather the Class itself, it also can be inherit.
+- Private and protected properties and methods: In OOP one of the important principles is encapsulation, not every method, property should visible outside of it class block. To achieve this, there are two option: dont create the property value outside but rather modified it in another method, the engine will know and not generate getter setter for that propr but it only viable for variable, the second option is provide the underscore _ before variable/method name then that property/method will only visible inside the class and any child class, for protected property can be accessed outside by define getter to return that property, if u dont want it to be modified from outside then don't provide the setter method.
+- Extending built-in classes: built-in classes like Array, Map and other are extendable. Although when extend a classes it will inherit all static method, property from parent but built-in method in class are not inherit.
+- Instanceof: this operator allow check if an object is an instance of a class or not, it also take inherit into account. instance of can be modified by editing the [Symbol.hasInstance] symbol to return either true or false when using instance of static method.
+- Mixins: you can create defined method through an object and assign it to a class prototype to add those method/ properties to the Class definition.
+- Error handling, try catch: if a block can produce error via the execution is interrupt or a fetch return error (can't be prevent using code) then it should be contain in a try catch block, preventing application crash - runtime error. The exception can be handle in the catch block where catch() provide an exception argument which have the detailed causing error when execute the try block. Noted exception can be thrown manually by using throw key word.
+- Custom errors: Js engine already provided a set of Error but sometime an application want to explicit handling an error which provide for a specific usecase, creating new Error class which extend the Error base class for provided built-in function and throwing that Error if needed. when handling catch  error, you can check the kind of error by checking base class it created from via instanceOf built in and then handling it corresponding to it class. 
+- Promise: Promise is a special js object that hold a code block to be execute elsewhere when its is expensive to execute in callstack, the value of the promise will present when its done and available when all the execute in call stack is done and the engine move to the queue stack.
+ + there are lots of way to create a promise: either using new Promise or using the static method of it like resolve, reject. Some built in function like fetch and loadScript will return a promise object.
+ + When using new Promise() the user must provide a resolve callback to determent the action after the promise is fulfill, keep in mind reject is use for handling promise error.
+  Syntax: Promise((resolve, reject) => {... resolve(arguments (optional))})
+ + When return a promise object, we can add built in function then to execute an action after the promise is success, catch to handle promise error and final to conclude the promise action (mostly using for clean up).
+- Promise chaining: like callback, promise also can take callback function and execute it after the promise is resolve, mostly using then, then can be chain multiple time and the return value of the previous then will be the result parameter of the next then function. Keep in mind chaining then one after another is different with creating 1 promise and adding then in multiple time. Promise and then can return another Promise, for the next then to run it will wait the promise to be settle and then execute the next action. If a .then (or catch/finally, doesn’t matter) handler returns a promise, the rest of the chain waits until it settles. When it does, its result (or error) is passed further.
+- Error handling with promise: when using promise chains. a catch method handle errors in all kinds and it is an implicit try...catch implement to handle all synchronous code in the callback block. catch should be in the end of chains and before the final method. There are some case promise throw error and catch is execute, then the chains will continue after the catch method skip all then method before its not reached.
+ - Promise API (all, allSettle, race, any):
+  + Promise.all: take in an array of promise and way for all to handle successfully and then return it with an array of value, if any promise is rejected, the execution is terminate and return an error.
+  + Promise.allSettled: Wait for all promise in array to finished which include error one, it will return array of object with this schema {status: '', value: return} for success it will be 'fulfilled' and for error it will be 'rejected' with value as Error/Exception.
+  + Promise.race: wait for the first settled promise in the array (include Error).
+  + Promise.any: wait for the first fulfilled promise excluding the error.
+  + Promise.resolve/reject: obsolete version of async await where resolve need to provide a value and reject provide an error.
+- Promisification: or call short promisify is a way to transform a function that accept a callback into a function that return a promise. 
+- Microtask: Promise handlers are asynchronous, every await and promise handler will be send to microtasks queue. all task in this will run/ return when all the callstack is cleared and engine move to execute the microtasks.
+- Async/await: a simple syntax for handling asynchronous action. the async function will always return a promise. the await keyword make the subsequence code to be hold until the promise after await is settled. not like promise, Handle error inside an async function using try...catch...(final).
+- Modules: a file script defined as type="module" by html. Module script are defer: means its will load after the html is read and validate but before the DOM is loaded. we can use async in inline script tag. Duplicate script import will only executed once.
+- import and export: we can have many export in one file but only 1 export default, you can add the export keyword before any expression to export it. We can import as many as we want and can use 'as' keyword to rename the import, webpack or other bundler have tree-shaking optimization which remove unused import.
+- Dynamic imports: we can you import function to dynamically import a module until it is used. Providing import with await to guarantee returning a Promise.
+
+17/7
+- Browser environment: a JS engine can run in multiple platform an each platform will provide a set of built in helper to control the overall environment. The anarchy will consist of window at the top and 3 separate entity include DOM, BOM and Js environment.
+ + window is a global object for js code, it represent the browser window and method to control it.
+ + DOM (Document Object Model): this represent the page content as an object and can be modified via the `document` object as entry point.
+ + BOM (Browser Object Model): Representing the host env aka the browser and this will work with browser behavior except document. Eg: navigator and location, alert, confirm and prompt functions are part of the BOM and they are not directly related to document but represent a method to communicate with the document.
+- DOM tree: barebone of DOM tree is tags, each tag is an object with nested tags act as children. Note: the text inside is also an object. To manipulate the DOM tree we use the provided document object, there are multiple method/property inside and if we want to manipulate a child node nested deep inside we can use provided query method.
+- Walking the DOM: to Manipulate the DOM from top to bottom we first need to access the document object, this act as an entry point into this document tree and its an localize version of the DOM we see on the page. to access the <html> we can use `document.documentElement` as entry point using document.head/body to access the corresponding head/body tag. each tag/node will behave like an object node that hold all the property defined/describe the node and its children if had. (children nodes is direct child node, descendant node is all element nested inside of it and their children so on). 
+ + To access the children node you can use property [childNodes] that look like an array (collection with Symbol.Iterator), the order of this array is according to how its show on the DOM vise versa.
+ + To access next sibling property and previous one you can use the corresponding nextSibling and previousSibling. To get the parent node just use parentNode.
+- Searching Element: to navigate nested descendant rather using chain childNodes, dom provide a set of built in function to traverse and search for the right element we want to manipulate.
+ + getElementById or just id(): get element arcoding to the id value provide to the tag, id should be unique so this query will alway return one element.
+ + querySelectorAll: return an array of element that match the provide css selector.
+ + querySelector: return the first element from given css selector.
+ + element.matches(css) check the element is matching the css selector and return boolean.
+ + el.closet(css) check for the nearest ancestor match the css selector.
+ + getElementBy*: return a collection of el according to provided value mostly obselete by querySelector but still working as polyfill for older browser.
+ + live Collection: these getElementBy not only return the element but also it liveness, when mutate these value then the dom will also change and change in the DOM also reflect on the collection immediately. in contrast, querySelectorAll will return the static collection means the change in DOM structure dont affect the collection we already get.
+
+18/7
+- Node properties: type, tag and contents
+ + Base arnachy of HTML classes: EventTarget -> Node -> Element (div) -> HTMLElement -> HTMLInput/Anchor/Body...Element, Node -> Document -> HTML Document, Node -> CharacterData -> Text, Comment.
+  * EventTarget: base abstract for event handling and everything.
+  * Node: base abstract serve as base DOM node.
+  * Document: is an abstract for HTMLDocument and serve as entry point for document object.
+  * CharacterData: other content beside HTML tag, serve for holding text and comment.
+  * Element: base class for DOM element and element like navigation: nextSib, child, search query. (Base class of div)
+  * HTMLElement: basic class for all Html element.
+ + nodeType property: an old fashion way to get Element type of a DOM node. (1 is element node, 2 is text and 9 is document object,...)
+ + tagName and nodeName: tagName only exist in Element nodes (exclude text and comment), nodeName is defined for any Node which include elements and other node types.
+ + innerHTML: the HTML structure inside of the current HTML node, this can be modified.
+ + outerHTML: the property contain the current HTML element and its child, this is like innerHTML + the wrapper.
+ + NodeValue: Inner and Outer only show the element nodes, for some case user want to access other type of node then nodeValue will come in handy. 
+ + textContent: get text inside the element minus all the tags.
+- Attribute and properties: a meta data to describe the behavior, action, info of a node value.
+ + DOM Properties: DOM property/method act like normal js object and since document is an object then if we modify the property it will share across the DOM tree, these property is case-sensitive so kept that in mind.
+ + HTML attribute (standard property): one tags may have attributes, when parsing from DOM it recognize the standard attribute and generate the DOM properties for them in node object value. standard attribute is defined inside the corresponding element classes so the number of standard attribute may vary from different element.
+ + property-attribute synchronization: When a standard attribute changes, the corresponding property is auto-updated, and (with some exceptions) vice versa.
+ + DOM properties are typed: Not all properties are string, some hold Boolean like checked and some hold an object like style. And major of properties are string but some have different behavior like href which will convert any hash (#something) into a full HTML when access directly through a.href([Full address]/something) rather then getAttribute (#something).
+ + Non-standard attribute: a non-standard attribute usually used for transferring/pass data form HTML to JavaScript or sometime its children will dictate their behavior according to these custom attribute. Or to mark HTML-element for JavaScript. For some case these attribute can be used as style selector.
+ + Dataset: With the expanding of web develop some custom attribute might become a standard one so they provide a universal syntax for custom attribute using data-* which preserve for programmer use, They are available in the dataset property and guarantee never appear in the standard attribute list.(Eg: <tag data-about=[something]> convert to js will be *.dataset.about //something) multiword data attribute will convert to camel-cased.
+- Modifying the document: 
+ + create: to using document.createElement to create an element from scratch and modify it
+ + insert: using el.append/prepend to insert an/many element to last/first of the el child. using replaceWith to replace the current el, using before/after to insert it before/after of the el position. the parameter for these will be HTML element, if you tried to insert text as HTML it will not be converted
+ + insertAdjacentHTML/Text/Element: a versatile way to insert html/text/element, syntax insertAdjacent...(where, html/text/element) this is where its special, if you use HTML insert it will take normal string and HTML template and convert it to HTML like innerHTLM, other text and element work the same as add text and add elements.
+ + Node removal: using el.remove() to remove an element from DOM tree.
+ + clone Node: a versatile cloneNode access 1 Boolean parameter: true will clone all its attribute and the subsequence child node also, false will clone the wrapper element only. 
+ + Document Fragment: a special DOM node that serves as a wrapper to pass around a list of nodes, when append the fragment it will add the contents inside of it not the Fragment itself.
+ + document.write: super ancient, only work when content is loaded, if tried to use this after html is loaded it will replace the current document. But it run blazingly fast when in parse HTML state so kept in mind.
+- Styles and classes: In HTML we can use the classes to create a usable set of style that apply to the element that have the classes or style directly inside the styles attribute (not recommended), JS can modify both styles and classes.
+ + className and classList: className will show the contain current classes as a string, classList is a base property object to use add/toggle/remove a single class.
+ + style: an object that hold all the current style, this can be used to manipulate the data of styles, for multi-word property style it will convert to camelCase. There is a shortcut to rewrite multiple property in one expression using style.cssText that take in an template string of css style property.
+ + Keep in mind the style property only operate on the current value of the element without css cascade which mean if there was a style that this element inherit from css cascade then it will not show on the style element. This is where getComputedStyle come in handy: it will show the computed version after the browser determine what style to apply to the element.
+ + There are difference between computed style and resolved style: computed is style after all rules and inheritance happen and the style values still behave relatively (rem, em, vw, vh, %,...). Resolved style is the style after all the values in the computed one translated to px, so all value related to number, calculated will show as px unit.
+- Element size and scrolling: A coordinate set of number to determine the position of the element on the screen
++ offSetTop/Left, offSetParent: using the nearest ancestor that browser uses for calculating to coordinate during render:
+position absolute, relative, fixed, sticky, table tags and body tags as outmost ancestor. offSetParent will return the element used as the coordinate
++ offSetWidth/Height: the true width of the element which include content-width, scrollbar, paddingm padding and border
++ clientTop/Left: the distance between the content and the element relative coordinate. Most of the time it's equal to border but its can also 
+include scrollbar width if needed.
++ clientWidth/Height: the width of the content inside exclude the scrollbar plus the padding.
++ scrollWidth/Height: just like clientWidth/Height but including the scrollout/overflow height/width, minus the scroll bar
++ scrollLeft/Top: Calculating the coordinate scrolled out part of the element to the top/left not the whole scrollWidth/Height. For reference every time we scroll the according scrollTop/Left
+will increase.
++ Don't use element width for calculation but rather use getComputedStyle width to calculate the true width of the content
+- Window size and scrolling: to get the width/height of window we use documentElement.clientHeight/Width,
+ + To get width/height of document you will need to take the max value of scrollHeight/offsetHeight/ClientHeight of document element or body, this inconsistent cause by engine in ancient time. 
+ + To get the current scroll view you can use window.pageXOffset and pageYOffset.
+ + Scrolling: scrollBy will make browser scroll to the coordinate XY of the current position, scrollTo will arcoding to the XY of the document or the nearest relative coordinate, including the scrollWidth/Height. element.scrollIntoView will make the element into view.
+- Coordinates: The set of X/Y unit to determine the position of an element on screen.
+ + pageX and clientX: page prefix is document-relative coordinate, its calculated in load time and usually dont change overtime. client is window-relative coordinate means its will change according to the position of it on screen while scrolling.
+ + getBoundingClientRect: return the client coordinate of the rectangle that enclose the element content, this can sound unclear but you can say it calculate the position from window top to the top-left border edge. this method return x/y/width/height/top/bot/left/right.
+ + elementFromPoint(x,y) return the nested element at the window/client coordinates.
+
+21/7
+- Introduction to browser events: an event is a signal that something has happened from an element in the DOM, this could be mouse event, keyboard event, element event, DOM event, css event.
+ + Event Handler: a callback function to handle something when specific event is fired, binding using addEventListener, event attribute or DOM event properties.
+ + HTML event attribute: built in attribute to add an event handler when specific event attribute is fired.
+ + DOM property: built in property when use element.on<event> will bind the handler for specific handler.
+ + addEventListener: as the previous way to assign the event handler, there will only be one handler. To fix this element.addEventListener come in handy, this method can add multiple handler to one event and use removeEventListener to remove that event. Note that when remove we need the same handler as a function.
+ + Event Object: each handler callback will take in an event object in there defined argument, this object will contain information related to the triggered event (type, element binding the element aka currentTarget, value, clientX/Y).
+- Bubbling and capturing: a set of behavior occur when an event is triggered on an element.
+ + Bubbling: when an event is happened on an element, it will fire the corresponding handler on that element first then work way up to the ancestor. Not all event are bubble like focus.
+ + event.target: the element that caused the event that triggered, this may vary on where the user bubbling the event. Note that sometime event.target is not the currentTarget or this since event.target will return the element it initiate the event not the element that was binding the event to, so if you click an input in a form that bind an event, the currentTarget will return the form element and the event.target will return the input.
+ + stop bubbling: use document.stopPropagation to stop the bubbling of an event. if an event have multiple event handler then use the stopImmediatePropagation to stop other event from being fired.
+ + Capturing: there are 3 phase for DOM events to initiate and run propagation: capture, target and bubbling. Common behavior of event handler will run in bubbling phase where all the path and target is initialized but you can make a handler run in capture time by adding option capture true in options arguments. 
+- Event delegation: combining capturing and bubbling we can create a powerful event delegation which help to minimize code and increase readability. keep in mind event.target will return the current element that initialize the event so checking it in event handler is convenient too (could use .closet(tag) method).
+- Browser default action: most of the event in js will bubbling to a parent event handler, to prevent this default behavior you can use the preventDefault method for cutting the default behavior the event. when dealing with multiple event handler on the same element event you can use the event.defaultPrevented to check if any handler already call the e.preventDefault, the order of trigger event handler is according to order of creation.
+- Dispatch custom events: beside built in event inside DOM, developer can create custom events suited for specific usecase and call these event via dispatchEvent method.
+ + create event: using new Event(type [, option]) to create a custom event, to distinct between user event and script event u can use the event.isTruted to check its user event or not
+ + call event: using dispatchEvent(customEvent) to invoke the custom event, the element only need to add listener to the eventype identical to the provided event type arguments. Script Events also bubbling like normal event do.
+ + custom event: CustomEvent basically like Event but in second argument (option object) you can add additional property detail to pass down the event listener.
+ + prevent default: when dispatching an event, if the event handler use preventDefault method then the return value of this dispatchEvent will be false, this can come in handy when user want to determine the event is passed or not.
+ + Nesting event will run synchronously mean the latest function call will be run first and finish then the concurrence function will continue.
+- Mouse events: every event occur in the browser do have a specific event handler and mouse event usually occur when user clicked or move/hover the element, these usually handled by browser and it can be handle by developer too. Eg: click, dbclick mousedown/up, mouseover/out.
+ + Event order: mousedown -> mouseup -> click/contextmenu. Every button on mouse have a number: left button is 0, middle is 1, right is 2, x1 x2 is 3 4, button click or drag can combine with modifier keys(shift, ctrl)
+ + Coordinates: every mouse-event can be capture using html attribute or simply use addEventListener, mouse event will return the relative coordinate of the current pointe. PageX will return the current position relative to document on x-axis, pageY is vertical axis. clientX/Y return the coordinate to the current window.
+ + Prevent selection on mousedown: db click has an  intuitive behavior that select text, this sometime isn't our desire behavior so you can return false on mousedown event.
+
+22/7
+- Moving the mouse: since every behavior of mouse could be capture so does moving and move in out of an element.
+ + mouseover/mouseout: when moving the mouse into/out an element will triggered an event. When moving from one element to another the mouseover event will reference in target and the previous element will reference in relatedTarget, mouseout reverse the reference order.
+ + Skipping elements: for some case if the mouse move fast they can skip some event like mousemove and jump to the event triggered for the current pointer position, this behavior is performance friendly since it cut off redundant event. Note: if an mouseover is catch while moving the mouse fast, dom will automatically add mouseout if the pointer no longer belong to the element.  
+ + mouse out when leaving for a child: mouseout will trigger when a pointer go into element descendant. According to browser when a pointer is over an element it will only be over 1 element at any time - the most nested one and top by z-index.
+ + mouseenter/leave: not like mouseover which will over 1 element only, mouse enter will cover the element and its descendant so the when the user move from element to element inside, the mouseleave will not triggered until the mouse is moving out of that element, mouseenter/leave don't bubble.
+ + Event delegation: to handle event delegation for mouse event, use mouseover/out since mouseenter don't bubble to handle this behavior.
+- Drag'n'Drop mouse events: drag is additional mouse event that capture when user mousedown and move at the same time, this can be capture by event dragstart and dragend.
+- Pointer events: a set of event that support for pointing devices, in pointer eventHandler, you can check what can of pointer is using by checking pointerType property. Some pointer device can be measure the contact area and the pressure the pointer is touched - pressed. 
+- Keyboard event - keydown & keyup: every key pressed can be capture using keydown and keyup event, this handler usually bind to input field or check if any accessibility key is pressed like tab or spacebar. Every key has its own  key code via event.key or check the code of the pressed key by using event.code, although the key might be diff by uppercase or lowercase but the event.code will remain the same. When pressing the same key the event keydown will be repeated until the user release they key and trigger keyup event. Some key have default action from browser like F12, Delete, PageDown,... preventDefault on keydown event will prevent most of the keyboard default action except some OS key short cut like win or alt f4.
+- Scrolling: scroll event can be catch and sometime scroll behavior can be prevent using preventDefault.
+
+24/7
+- Form properties and method: using document.form.(form name provided by name attribute) to access the form with name value or access the form with index. Accessing the internal element of the form using form.element[name] where name is defined via name attribute, if multiple element have the same name its will group all into 1 array. Note: using field set will help to divide the form into smaller section which easier to control.
+- Focus/blur: an element can receives focus either by click or tab key to the current element, there also autofocus attribute to put focus on the element and when losing focus the element  will trigger blur event that indicate the browser is moving control from the element. 
+ + event focus/blur: the blur handler check if the field is valid and return error if so, focus event usually hide the error message on blur checked.
+ + method focus/blur: set and unset focus on an element. 
+ + tabindex: not all element can be focus like div, span, table,... to change that HTML provide an attribute call tabindex. With this the element can be focusable and focus/blur event and method are available, provide a number will determine the order of focus when user using Tab key on screen. 
+ + The order of focus is form low to high index, top to bottom and after that those element can be focus but don't provide tabIndex will go next. Provide index value = 0 just like adding focusable without determine the order of tab, it will focus according to flow of page. Adding index value = -1 make element can only be focus by script.
+ + Delegation: focus/blur can't be bubble but there are two way to work around this: although it isn't bubble but it can be propagate during capture phase so provide focus/blur event on capture phase will work. Second option is using focusin/out event that will bubble, this event can only set using addEventListener.
+- Events: change, input, cut, copy, paste.
+ + change event: triggered when the element has finished changing and lose focus on input text, other input will change when selected/current value change. 
+ + input event: triggered when the current value change in input, which include keyboard and action by mouse like paste, cut. Note: if an keyboard/mouse event didn't make the value change then the trigger wont fired.
+ + cut, copy, paste event: these events belong to ClipboardEvent clast, the action of using clipboard can be prevent using preventDefault, the nothing get copied/pasted.
+- event and method submit: when using input or button with type submit in form, pressing Enter, the event 'submit' will be fired and sending data from js. With method like form.submit, the document will not emit the 'submit' event and assume that programmer has done all related task to perform the sending data to the server.
+- DOMContentLoad, load, beforeunload, unload: the lifecycle of HTML Page has 3 important event:
+ + DOMContentLoaded: Load the fully HTML and DOM tree are built but external file still not yet loaded. DOM loaded data without waiting for any external stylesheet/image but they still need the script to fully run except some occasion and then the DOMContentLoaded event fired to indicate all content as loaded and run.
+ + window.onload: The load event on the window object triggers when the whole page is loaded including styles, images and other resources. This event is available via the onload property.
+ + window.onunload: When a visitor leaves the page, the unload event triggers on window. We can do something there that doesn’t involve a delay, like closing related popup windows or sending analytics. For that we can use navigator.sendBeacon(url, data).
+ + window.onbeforeunload: run before browser unload the page, this event can be use to validate if user want to move from this page.
+ + readyState: document.readyState show the current loading state of the page which include 3 state: loading, interactive(DOM is loaded and read), complete(document fully read and external resources is added).
+- Script: async, defer: in modern websites, script usually heavy then HTML so its take lot of time to loaded and more time to executed it and move to the next section in DOMContentLoaded state, to work around this browser provide async, defer to make the script load asynchronous, the DOM don't need the script to be loaded and execute it. Although async, defer make the script to load and execute without blocking DOM loading but there are some differences between them:
+ + defer: The defer attribute tells the browser not to wait for the script. Instead, the browser will continue to process the HTML, build DOM. The script loads “in the background”, and then runs when the DOM is fully built. Script with defer never blocked the page and it will execute after DOM is ready(before DOMContentLoaded event). Deferred scripts keep it relative order just like stack queue. The defer attribute is only for external scripts.
+ + async: Work similar like defer script but async script don't wait for other async script vice versa. DOMContentLoaded and async script dont wait for each other. Async script load on background and run when ready.
+ + dynamic script: when a script is created and append using JavaScript it will run as soon as it append to the DOM and it run like a normal async script by default, this can be change by editing .async= false the script will executed in the document order just like defer.
+- Resource loading(onload and on error): browser can help us track the loading state of external resource using onload and onerror event.
+ + Loading a script: to handling action after a script/resource is loaded you can use script.onload to add a handler that trigger after the script is loaded and executed.
+ + script on error: sometime there might be something wrong with the external script via corrupt file, this can be track with onerror event
+ + Cross origin policy: There are rule that a script cant access context from other site or to be more precise: one origin cant access another origin. So even if we have a subdomain, or just another port, these are different origins with no access to each other.
+- Event loop: a concept of pending task for engine to execute and move to sleep mode when there are no task left and wait for new task to execute. Event loop execute base on FIFO for synchronous tasks. But sometime engine is busy to execute a certain task or the task executed may take a lot of time, then the task call by mousemove or setTimeout will be add in a so-called macro task which wait for the current task to be executed then move to these macro-tasks. Macro task will execute after any task and microtask is executed.
