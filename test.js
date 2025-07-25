@@ -101,14 +101,49 @@ const b = Number(prompt("b"))
 alert(a + b)
 
 //task 2
+
+// since decimal is an endless binary so its store precision loss. Precision loss can caus the increase and 
+// decrease of a number and if the number decimal is long then the loss become bigger. Note the.5 to fixed will have the tiniest decision loss
+// 6.35.toFixed(10) => 6.349999999 this cause the round down -> fix by reduce the number of decimal
+Math.round(6.35 * 10) / 10 === 6.4
+
+//task 3
 function loopnum() {
-  let a = 'a';
+  let a = null;
   while (!isFinite(a)) {
-    const read = prompt('a');
+    const read = prompt('enter a number');
     if (!isNaN(read)) return Number(read);
     if (read === null) return null
     a = read;
   }
+}
+
+//task 4
+// since the decimal will always have decision lost so the add up 0.2 will never equal 10 
+
+//String
+//task 1
+function ucFirst(str) {
+  if (!str) return;
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+//task 2
+function checkSpam(str) {
+  const checkStr = str.toLowerCase();
+  return checkStr.includes('xxx') || checkStr.includes('viagra')
+}
+
+//task 3
+function truncate(str, number) {
+  if (!str && !number) return;
+  return str.length > number ? str.slice(0, number - 1) + '...' : str;
+}
+
+//task4
+function extractCurrencyValue(currency) {
+  if (!currency || !currency.includes('$')) return;
+  return +currency.slice(1);
 }
 
 //Array
@@ -139,6 +174,29 @@ function maxSum(arr) {
     if (partSum < 0) partSum = 0
   }
   return maxSum
+}
+
+//array-method
+//task 1
+function camelize(str) {
+  if (!str) return;
+  const splitStr = str.split('-').map((word, index) => index > 0 ? word[0].toUpperCase() + word.slice(1) : word);
+  return splitStr.join('');
+}
+
+//task 2
+function filterRange(arr, a, b) {
+  return arr.filter(num => num >= a && num <= b)
+}
+
+//task 3
+function filterRangeInPlace(arr, a, b) {
+  for (let i; i < arr.length; i++) {
+    if (arr[i] < a || arr[i] > b) {
+      arr.splice(i, 1);
+      i--;
+    }
+  }
 }
 
 //Map - Set
